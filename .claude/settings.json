@@ -1,0 +1,35 @@
+{
+  "model": "sonnet",
+  "permissions": {
+    "allow": [
+      "Bash",
+      "WebFetch(domain:localhost)",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo:*)"
+    ]
+  },
+  "context": {
+    "project": "Products Lab",
+    "type": "react-site",
+    "language": "javascript",
+    "framework": "react",
+    "styling": "tailwind",
+    "bundler": "vite",
+    "animations": "framer-motion",
+    "deploy": "github-pages",
+    "repo": "https://github.com/Mdyuzhev/products_lab"
+  },
+  "codeStyle": {
+    "indentSize": 2,
+    "useSemicolons": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  }
+}
