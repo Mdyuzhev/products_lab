@@ -37,7 +37,9 @@ export default function Championship() {
         { name: 'Миронова Ольга Дмитриевна', city: 'Москва' }
       ],
       color: 'amber',
-      gradient: 'from-amber-500 to-yellow-500'
+      gradient: 'from-amber-500 to-yellow-500',
+      hasVideo: true,
+      videoFile: 'Wink.mp4'
     },
     {
       place: 2,
@@ -73,7 +75,8 @@ export default function Championship() {
       ],
       color: 'orange',
       gradient: 'from-orange-600 to-orange-700',
-      hasVideo: true
+      hasVideo: true,
+      videoFile: 'SmartStorage.mp4'
     }
   ]
 
@@ -232,23 +235,20 @@ export default function Championship() {
                           <span className="text-violet-400 font-medium">{winner.projectName}</span>
                         </div>
 
-                        {/* Video placeholder for 3rd place */}
                         {winner.hasVideo && (
-                          <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700 group cursor-pointer">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="w-16 h-16 rounded-full bg-violet-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Play className="w-6 h-6 text-white ml-1" />
-                              </div>
+                          <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700">
+                            <video
+                              src={`${import.meta.env.BASE_URL}videos/${winner.videoFile}`}
+                              controls
+                              className="w-full h-full object-cover"
+                            >
+                              Ваш браузер не поддерживает видео
+                            </video>
+                            <div className="absolute bottom-0 left-0 right-0 px-4 py-2 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+                              <span className="text-sm text-slate-300">
+                                🎬 Презентация проекта {winner.projectName.split('—')[0].trim()}
+                              </span>
                             </div>
-                            <div className="absolute bottom-4 left-4 text-sm text-slate-400">
-                              🎬 Презентация проекта SmartStorage
-                            </div>
-                            {/* 
-                              TODO: Заменить на реальное видео
-                              <video src="/videos/SmartStorage.mp4" controls />
-                              или YouTube embed:
-                              <iframe src="https://www.youtube.com/embed/VIDEO_ID" />
-                            */}
                           </div>
                         )}
                       </div>
