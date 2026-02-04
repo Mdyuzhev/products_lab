@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, X, Rocket } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import { Menu, X, Rocket, Trophy } from 'lucide-react'
 
 const navItems = [
   { id: 'hero', label: 'Главная' },
@@ -14,6 +15,8 @@ const navItems = [
 export default function Navbar({ activeSection }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHomePage = location.pathname === '/' || location.pathname === ''
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +27,10 @@ export default function Navbar({ activeSection }) {
   }, [])
 
   const scrollToSection = (id) => {
+    if (!isHomePage) {
+      window.location.href = `/#${id}`
+      return
+    }
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
@@ -42,22 +49,23 @@ export default function Navbar({ activeSection }) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => scrollToSection('hero')}
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-orange-500 flex items-center justify-center">
-              <Rocket className="w-5 h-5 text-white" />
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-display font-bold text-lg">Products Lab</div>
-              <div className="text-xs text-slate-400">Ростелеком × ВУЗы</div>
-            </div>
-          </motion.div>
+          <Link to="/">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-orange-500 flex items-center justify-center">
+                <Rocket className="w-5 h-5 text-white" />
+              </div>
+              <div className="hidden sm:block">
+                <div className="font-display font-bold text-lg">Products Lab</div>
+                <div className="text-xs text-slate-400">Ростелеком × ВУЗы</div>
+              </div>
+            </motion.div>
+          </Link>
 
           <div className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
+            {isHomePage && navItems.map((item) => (
               <motion.button
                 key={item.id}
                 whileHover={{ scale: 1.05 }}
@@ -72,6 +80,22 @@ export default function Navbar({ activeSection }) {
                 {item.label}
               </motion.button>
             ))}
+            
+            {/* Championship link */}
+            <Link to="/championship">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
+                  location.pathname === '/championship'
+                    ? 'bg-amber-500/20 text-amber-400'
+                    : 'text-amber-400/80 hover:text-amber-400 hover:bg-amber-500/10'
+                }`}
+              >
+                <Trophy size={16} />
+                Расти в ИТ
+              </motion.button>
+            </Link>
           </div>
 
           <motion.button
@@ -120,6 +144,14 @@ export default function Navbar({ activeSection }) {
                 {item.label}
               </button>
             ))}
+            
+            {/* Championship link mobile */}
+            <Link to="/championship" onClick={() => setIsMobileMenuOpen(false)}>
+              <button className="w-full text-left px-4 py-3 rounded-lg font-medium transition-all text-amber-400 hover:bg-amber-500/10 flex items-center gap-2">
+                <Trophy size={18} />
+                Расти в ИТ
+              </button>
+            </Link>
           </div>
           <button 
             onClick={() => scrollToSection('join')}

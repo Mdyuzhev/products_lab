@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import SmoothScroll from '../components/SmoothScroll'
 import Hero from './Hero'
+import ChampionshipBanner from './ChampionshipBanner'
 import About from './About'
 import Process from './Process'
 import Partners from './Partners'
 import Hypotheses from './Hypotheses'
 import Join from './Join'
+import Footer from '../components/Footer'
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero')
@@ -36,11 +38,13 @@ export default function Home() {
     <SmoothScroll>
       <Navbar activeSection={activeSection} />
       <Hero />
+      <ChampionshipBanner />
       <About />
       <Process />
       <Partners />
       <Hypotheses />
       <Join />
+      <Footer />
     </SmoothScroll>
   )
 }

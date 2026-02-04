@@ -33,26 +33,22 @@ products_lab/
 │   ├── CLAUDE.md           # Этот файл
 │   ├── settings.json       # Настройки агента
 │   └── commands/           # Slash-команды
-│       ├── start.md
-│       ├── dev.md
-│       ├── build.md
-│       ├── commit.md
-│       ├── deploy.md
-│       └── push.md
 │
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml      # GitHub Actions для автодеплоя
 │
 ├── src/
-│   ├── components/         # React компоненты
+│   ├── components/
 │   │   ├── Navbar.jsx
 │   │   ├── Footer.jsx
 │   │   ├── ScrollToTop.jsx
 │   │   └── SmoothScroll.jsx
-│   ├── pages/              # Секции страницы
+│   ├── pages/
 │   │   ├── Home.jsx
 │   │   ├── Hero.jsx
+│   │   ├── ChampionshipBanner.jsx  # Баннер чемпионата на главной
+│   │   ├── Championship.jsx        # Страница "Расти в ИТ"
 │   │   ├── About.jsx
 │   │   ├── Process.jsx
 │   │   ├── Partners.jsx
@@ -64,10 +60,12 @@ products_lab/
 │
 ├── public/
 │   ├── favicon.svg
-│   └── 404.html            # SPA redirect для GitHub Pages
+│   ├── videos/             # Видео презентаций
+│   └── 404.html
 │
 ├── Tasks/
-│   └── DEPLOY_GITHUB_PAGES.md
+│   ├── DEPLOY_GITHUB_PAGES.md
+│   └── cases/              # Материалы кейсов
 │
 ├── index.html
 ├── package.json
@@ -75,6 +73,15 @@ products_lab/
 ├── tailwind.config.js
 └── postcss.config.js
 ```
+
+---
+
+## Роуты
+
+| URL | Компонент | Описание |
+|-----|-----------|----------|
+| `/` | Home | Главная страница |
+| `/championship` | Championship | Страница "Расти в ИТ" |
 
 ---
 
@@ -86,23 +93,31 @@ products_lab/
 | Карточки | Glass effect | `glass`, `glass-purple` |
 | Акцент 1 | Фиолетовый | `text-violet-400`, `bg-violet-500` |
 | Акцент 2 | Оранжевый | `text-orange-400`, `bg-orange-500` |
+| Чемпионат | Янтарный | `text-amber-400`, `bg-amber-500` |
 | Ростелеком | Синий | `text-blue-400` |
-| Сириус | Фиолетовый | `text-violet-400` |
-| Политех | Оранжевый | `text-orange-400` |
 | Успех | Изумрудный | `text-emerald-400` |
-| Внимание | Розовый | `text-pink-400` |
 
-### Градиенты
-```css
-/* Основной */
-from-violet-400 via-purple-400 to-orange-400
+---
 
-/* Кнопка Primary */
-from-violet-600 to-orange-500
+## Чемпионат "Расти в ИТ" 2025
 
-/* Фоновый */
-from-violet-950/20 to-orange-950/10
-```
+### Статистика
+- 730 регистраций
+- 100+ команд
+- 5 финалистов на трек
+- 1 000 000 ₽ призовой фонд
+
+### Победители
+
+| Место | Приз | Команда | Кейс | Проект |
+|-------|------|---------|------|--------|
+| 🥇 1 | 500 000 ₽ | #106 | Wink | SCORE360 — Performance Review |
+| 🥈 2 | 300 000 ₽ | #108 | Сигма | Автооценка ответов (NLP) |
+| 🥉 3 | 200 000 ₽ | #5 | РТК ИТ | SmartStorage — Умный склад |
+
+### Видео
+- `Tasks/cases/SmartStorage1.mp4` — презентация 3 места
+- TODO: Загрузить на YouTube и вставить embed
 
 ---
 
@@ -110,48 +125,23 @@ from-violet-950/20 to-orange-950/10
 
 **URL:** https://mdyuzhev.github.io/products_lab/
 
-### Настройка
-
-1. Репозиторий: https://github.com/Mdyuzhev/products_lab
-2. Settings → Pages → Source: GitHub Actions
-3. При пуше в main — автодеплой через `.github/workflows/deploy.yml`
-
 ### Важно
 
-В `vite.config.js` параметр `base` должен совпадать с именем репозитория:
+В `vite.config.js` параметр `base`:
 ```js
 base: '/products_lab/'
 ```
 
 ---
 
-## Секции страницы
-
-| Секция | ID | Описание |
-|--------|-----|----------|
-| Hero | `#hero` | Главный экран с анимациями |
-| About | `#about` | О программе и преимуществах |
-| Process | `#process` | 5 шагов от гипотезы до прототипа |
-| Partners | `#partners` | Ростелеком, Сириус, Политех |
-| Hypotheses | `#hypotheses` | Каталог продуктовых гипотез |
-| Join | `#join` | Как участвовать |
-
----
-
 ## Development Workflow
 
 ```bash
-# Локальная разработка
 npm run dev         # http://localhost:3000
-
-# Сборка
 npm run build       # → dist/
-npm run preview     # Превью сборки на :4173
+npm run preview     # Превью на :4173
 
-# Деплой
-git add -A
-git commit -m "feat: description"
-git push origin main   # → автодеплой
+git add -A && git commit -m "feat: description" && git push
 ```
 
 ---
@@ -160,21 +150,17 @@ git push origin main   # → автодеплой
 
 ### ✅ Done
 - [x] Базовая структура React + Vite + Tailwind
-- [x] Hero с анимациями Framer Motion
-- [x] Секция About с карточками
-- [x] Process — 5 шагов workflow
-- [x] Partners — карточки партнёров
-- [x] Hypotheses — каталог гипотез (заглушки)
-- [x] Join — формы участия
+- [x] Hero, About, Process, Partners, Hypotheses, Join
 - [x] GitHub Actions CI/CD
-- [x] Smooth scroll + навигация
+- [x] Страница чемпионата "Расти в ИТ"
+- [x] Баннер чемпионата на главной
+- [x] Данные победителей с городами
 
 ### 🔄 Next
+- [ ] Embed видео презентаций (YouTube)
 - [ ] Реальные гипотезы от Ростелекома
 - [ ] Логотипы партнёров
-- [ ] Страницы отдельных гипотез
-- [ ] Форма подачи заявки (Google Forms / Airtable)
-- [ ] Телеграм-бот для уведомлений
+- [ ] Форма подачи заявки
 
 ---
 
@@ -182,16 +168,8 @@ git push origin main   # → автодеплой
 
 1. **Молодёжный дизайн** — фиолетово-оранжевая палитра, анимации
 2. **Продуктовый фокус** — гипотезы, MVP, валидация
-3. **Не ломай работающее** — инкрементальные изменения
-4. **Mobile-first** — проверяй адаптивность
-5. **Коммиты осмысленные** — `feat/fix/chore(scope): message`
-
----
-
-## Контакты
-
-- **GitHub:** https://github.com/Mdyuzhev/products_lab
-- **Live:** https://mdyuzhev.github.io/products_lab/
+3. **Mobile-first** — проверяй адаптивность
+4. **Коммиты осмысленные** — `feat/fix/chore(scope): message`
 
 ---
 
